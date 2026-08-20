@@ -18,7 +18,8 @@ class MeanTargetEncoderSmoothed(BaseEstimator, TransformerMixin):
         for col in self.categorical:
             stats = data.groupby(col)['target'].agg(['mean', 'count'])
 
-            smoothed = (stats['count'] * stats['mean'] + self.smoothing * self.global_mean_) / (stats['count'] + self.smoothing)
+            smoothed = ((stats['count'] * stats['mean'] + self.smoothing * self.global_mean_)
+                        / (stats['count'] + self.smoothing))
             self.encoding_maps_[col] = smoothed
 
         return self
@@ -36,5 +37,5 @@ class MeanTargetEncoderSmoothed(BaseEstimator, TransformerMixin):
 
         return temp
 
-    def fit_transform(self, X, y = None, **fit_params):
+    def fit_transform(self, X, y=None, **fit_params):
         return self.fit(X, y).transform(X)
