@@ -3,7 +3,6 @@ import pickle
 from datetime import datetime
 from typing import Any, Dict, List
 
-import numpy as np
 import pandas as pd
 from fastapi import FastAPI
 from loguru import logger
@@ -137,7 +136,28 @@ def recommended_posts(user_id: int, dt: datetime, limit: int = 10) -> List[PostG
     last_seen_at = pd.to_datetime(user_row['last_seen_at'])
     X['hours_of_last_action'] = (dt - last_seen_at).total_seconds() / 3600
 
-    feature_columns = ['user_id', 'post_id', 'hour', 'dayofweek', 'is_weekend', 'hours_of_last_action', 'gender', 'age', 'country', 'city', 'exp_group', 'os', 'source', 'n_views', 'n_likes', 'like_rate', 'topic', 'text_len', 'text_words', 'post_ctr']
+    feature_columns = [
+        'user_id',
+        'post_id',
+        'hour',
+        'dayofweek',
+        'is_weekend',
+        'hours_of_last_action',
+        'gender',
+        'age',
+        'country',
+        'city',
+        'exp_group',
+        'os',
+        'source',
+        'n_views',
+        'n_likes',
+        'like_rate',
+        'topic',
+        'text_len',
+        'text_words',
+        'post_ctr',
+    ]
 
     X_model_input = X[feature_columns]
 

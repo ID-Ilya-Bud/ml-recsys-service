@@ -20,7 +20,7 @@ class PostGet(BaseModel):
 
     id: int
     text: str
-    topic: Optional[str]=None
+    topic: Optional[str] = None
 
     model_config = {"from_attributes": True}
 

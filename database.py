@@ -17,6 +17,6 @@ def postgres_connection():
         print("❌ Ошибка при подключении к базе данных.")
         raise e
     
-    conn.autocommit=True
+    conn.autocommit = True
 
     return conn
