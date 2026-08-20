@@ -9,4 +9,3 @@ response = requests.get(
 
 print("Рекомендации для пользователя четным user_id [200]:")
 print(response.json(), "\n")
-
