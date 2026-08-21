@@ -12,5 +12,9 @@
           run: pip install flake8
         - name: Start flake8
           run: flake8 .
-        - name: Build dock-con
-          run: docker build -t ml-recsys .
+        - name: Docker build
+          run : docker build  -t ${{ secrets.DOCKERHUB_NAME }}/ml-recsys .
+        - name: Docker login
+          run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_NAME }} --password-stdin
+        - name: Docker push
+          run: docker push ${{ secrets.DOCKERHUB_NAME }}/ml-recsys
