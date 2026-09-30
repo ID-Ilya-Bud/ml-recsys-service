@@ -10,6 +10,8 @@ from loguru import logger
 from database import postgres_connection
 from schema import PostGet
 
+logger.info("deploy v2")
+
 
 # === Вспомогательные функции ===
 def load_sql(query: str, dtypes: Dict[str, Any] = None) -> pd.DataFrame:
