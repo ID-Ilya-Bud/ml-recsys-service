@@ -3,3 +3,7 @@ test.py
 .git
 __pycache__
 .env
+catboost_info
+*.ipynb
+.github
+README.md
