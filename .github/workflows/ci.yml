@@ -15,6 +15,8 @@
         - name: Docker build
           run : docker build  -t ${{ secrets.DOCKERHUB_NAME }}/ml-recsys:latest -t ${{ secrets.DOCKERHUB_NAME }}/ml-recsys:${{ github.sha }} .
         - name: Docker login
+          if: github.ref == 'refs/heads/main'
           run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_NAME }} --password-stdin
         - name: Docker push
+          if: github.ref == 'refs/heads/main'
           run: docker push --all-tags ${{ secrets.DOCKERHUB_NAME }}/ml-recsys
