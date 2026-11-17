@@ -1,0 +1,32 @@
+- hosts: vm
+  tasks:
+    - name: file create
+      file:
+        path: /home/ilya/recsys-prod
+        state: directory
+    - name: copy d-c.p.y
+      copy:
+        src: /c/Users/ilyap/ml_final_project/docker-compose.yml
+        dest: /home/ilya/recsys-prod/docker-compose.yml
+    - name: copy .env
+      copy:
+        src: /c/Users/ilyap/ml_final_project/.env
+        dest: /home/ilya/recsys-prod/.env
+        mode: "0600"
+    - name: docker pull
+      command: docker compose pull
+      args:
+        chdir: /home/ilya/recsys-prod
+      changed_when: false
+    - name: docker up
+      command: docker compose up -d
+      args:
+        chdir: /home/ilya/recsys-prod
+      changed_when: false
+    - name: healthcheck
+      uri: 
+        url: http://localhost:8000/docs
+      register: health
+      until: health.status == 200
+      retries: 40
+      delay: 15
